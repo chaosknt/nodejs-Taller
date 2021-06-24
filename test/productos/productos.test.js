@@ -1,22 +1,19 @@
 import assert from 'assert'
-import { crearServidor } from '../../src/shared/server/Server.js'
 import FormData from "form-data"
 import axios from 'axios'
 import fs from 'fs'
 import { json } from 'express'
-import factoryProductos from '../../src/productos/business/utils/factoryProductos.js'
-import {getConnection} from '../../src/shared/mongo/connection.js'
+import { crearServidor } from '../../src/shared/server/Server.js'
+import crearApiCatalogo from '../../src/shared/fachadaCatalogo/apiCatalogo.js'
+import { getPort } from '../../src/config.js'
 
-const dir = 'entrada-salida/archivos'   
-const port = 8080;
-let conn
-let apiProd
-let servidor
+const apiCatalogo = crearApiCatalogo();
 
-    conn = await getConnection();
-    apiProd = factoryProductos.crearFactory_Productos(conn)
-    servidor = crearServidor({api: apiProd})
-    await servidor.conectar(port)
+const servidor = crearServidor( {apiCatalogo} )
+
+const port = getPort();
+
+await servidor.conectar(port)
 
 const prod1 = {
     precio: '20.34',
@@ -24,6 +21,8 @@ const prod1 = {
     codigo: 'jab00001',
     cantidad: '100'
 }
+
+const dir = 'entrada-salida/archivos' 
 
 describe('Modulo de productos', () => {
 
@@ -144,9 +143,11 @@ describe('Modulo de productos', () => {
             }
             );
         })
+
         it('Cierre de proceso', async  () => {
-            await conn.close();
-            await servidor.desconectar();
+            const res = await apiCatalogo.closeProductos()
+            const res1 = await servidor.desconectar();
+
         })
     })
 })

@@ -1,4 +1,4 @@
-function crearApiProductos(dao, procesosProductos, procesosArchivos) {
+function crearCUProductos(dao, procesosProductos, procesosArchivos) {
 
     return {
 
@@ -19,7 +19,6 @@ function crearApiProductos(dao, procesosProductos, procesosArchivos) {
                 let imagen = await procesosArchivos.subirElPrimero(Imagen, path)
                 let uriImagen 
                 await procesosProductos.subirACloudinary(imagen).then(uri => uriImagen = uri)
-                //console.log('uriImagen ********** ' + uriImagen)
                 const result = await dao.addProducto(Producto, uriImagen);
                 return result;
         },
@@ -46,11 +45,16 @@ function crearApiProductos(dao, procesosProductos, procesosArchivos) {
             await procesosProductos.buscarProductoConError(id)
             const result = await dao.deleteProducto(id);
             return result.ops;
+        },
+
+        close: async() => {
+            const res = await dao.close();
+            return res
         }
     }
 }
 
-export {crearApiProductos}
+export {crearCUProductos}
 
   
   

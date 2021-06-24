@@ -87,6 +87,15 @@ function crearDaoProductos(connectiondb) {
             console.log(error.message);
             throw crearErrorDeBaseDeDatos(error.message)
           }
+        },
+
+        close: async() => {
+          try {
+              const res = await connectiondb.close()
+              return (res) ? res: null;
+          } catch (error) {
+              console.log(error.message);
+            }
         }
     }
 }

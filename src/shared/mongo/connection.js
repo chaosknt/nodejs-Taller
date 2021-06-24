@@ -1,9 +1,10 @@
 import mongodb from 'mongodb'
+import { getCnxStrPrd } from "../../config.js";
 
 let mongoclient = mongodb.MongoClient;
 
 // TODO utilizar varibales de entorno
-const uri = "mongodb+srv://admin:pepe1234@cluster0.iive0.mongodb.net/Productos?retryWrites=true&w=majority";
+const uri = getCnxStrPrd(); // "mongodb+srv://admin:pepe1234@cluster0.iive0.mongodb.net/Productos?retryWrites=true&w=majority";
 
 const client = new mongoclient(uri, {useUnifiedTopology: true});
 

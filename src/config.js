@@ -3,6 +3,8 @@ dotenv.config()
 
 const getPort = () => process.env.PORT || 3000
 const getCnxStr = () => process.env.CNX_STR
+const getCnxStrPrd = () => process.env.CNX_STR_PRD
+const getCnxStrPrdDesa = () => process.env.CNX_STR_PRD_DESA
 const getMode = () => process.env.MODE || 'TEST'
 const getEmailSettings = () => {
 
@@ -18,5 +20,5 @@ const getEmailSettings = () => {
   return settings
 }
 export {
-  getCnxStr, getMode, getPort, getEmailSettings
+  getCnxStr, getMode, getPort, getEmailSettings, getCnxStrPrd, getCnxStrPrdDesa
 }
