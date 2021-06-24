@@ -7,6 +7,7 @@ import {crearRouterProductos} from '../../productos/routes/productosRoutes.js'
 import crearAddSubscriptor from '../../subscriptors/route/SubscribeRouter.js'
 import crearDeleteSubscriptor from '../../subscriptors/route/UnsubscribeRouter.js'
 import crearNotifySubscriptor from '../../subscriptors/route/NotifySubscriptors.js'
+import prodsRouter from "../../actualizarprods/ruteo/prodsRouter.js";
 
 
 function crearServidor({ apiCatalogo } ){
@@ -21,7 +22,7 @@ function crearServidor({ apiCatalogo } ){
     app.use('/api/subscribe', crearAddSubscriptor(apiCatalogo))
     app.use('/api/unsubscribe', crearDeleteSubscriptor(apiCatalogo))
     app.use('/api/notify', crearNotifySubscriptor(apiCatalogo))
-
+    app.use('/api/actualizar',prodsRouter)
 
     let server = null;
 
