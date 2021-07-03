@@ -20,13 +20,16 @@ router.get('/', (req, res, next) => {
 
 
 router.get('/name/:name', (req, res, next) => {
-
     dao.getProduct(req.params.name).then(cursor => {
-        let cu_escribir = new CU_EscribirProducto();
-        cursor.forEach(el => {
-            cu_escribir.writeFile(el);
-            res.json(el);
-        })
+        try {
+            let cu_escribir = new CU_EscribirProducto();
+            cursor.forEach(el => {
+                cu_escribir.writeFile(el);
+                res.json(el);
+            })
+        } catch (e) {
+            res.status(500).send("Reintente operación")
+        }
     })
 });
 
@@ -39,10 +42,9 @@ router.put('/update/:file', async (req, res, next) => {
 
 })
 
-
-router.post('/', async (request, response, next) => {
-
+router.get('*', function(req, res){
+    res.status(400);
+    res.send('Esa ruta es inexistente');
 });
-
 
 export default router

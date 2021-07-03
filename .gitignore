@@ -1,4 +1,5 @@
-<<<<<<< HEAD
+.idea/
+
 node_modules/
 .expo/
 npm-debug.*
@@ -82,4 +83,4 @@ package-lock.json
 
 .zip
 *.txt
->>>>>>> afdb9f9d773389c3c06e5378c419611bd8353c4a
+

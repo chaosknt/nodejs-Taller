@@ -10,7 +10,7 @@ import crearNotifySubscriptor from '../../subscriptors/route/NotifySubscriptors.
 import prodsRouter from "../../actualizarprods/ruteo/prodsRouter.js";
 
 
-function crearServidor({ apiCatalogo } ){
+function crearServidor({apiCatalogo}) {
 
     const app = express()
     app.use(express.json());
@@ -22,39 +22,40 @@ function crearServidor({ apiCatalogo } ){
     app.use('/api/subscribe', crearAddSubscriptor(apiCatalogo))
     app.use('/api/unsubscribe', crearDeleteSubscriptor(apiCatalogo))
     app.use('/api/notify', crearNotifySubscriptor(apiCatalogo))
-    app.use('/api/actualizar',prodsRouter)
+    app.use('/api/actualizar', prodsRouter)
+
 
     let server = null;
 
     return {
         conectar: (port) => {
-          return new Promise((resolve, reject) => {
-            if (server) {
-              reject(new Error('servidor ya conectado'))
-            } else {
-              server = app.listen(port, () => {
-                console.log(`todo bien, conectado en puerto ${server.address().port}`)
-                resolve()
-              })
-              server.on('error', (err) => {
-                reject(err)
-              })
-            }
-          })
+            return new Promise((resolve, reject) => {
+                if (server) {
+                    reject(new Error('servidor ya conectado'))
+                } else {
+                    server = app.listen(port, () => {
+                        console.log(`todo bien, conectado en puerto ${server.address().port}`)
+                        resolve()
+                    })
+                    server.on('error', (err) => {
+                        reject(err)
+                    })
+                }
+            })
         },
         desconectar: () => {
-          return new Promise((resolve, reject) => {
-            server.close((err) => {
-              if (err) {
-                reject(err)
-              } else {
-                server = null
-                resolve()
-              }
+            return new Promise((resolve, reject) => {
+                server.close((err) => {
+                    if (err) {
+                        reject(err)
+                    } else {
+                        server = null
+                        resolve()
+                    }
+                })
             })
-          })
         }
-      }
+    }
 }
 
-export { crearServidor }
+export {crearServidor}
