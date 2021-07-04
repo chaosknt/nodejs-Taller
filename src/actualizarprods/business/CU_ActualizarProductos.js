@@ -7,7 +7,9 @@ class CU_ActualizarProductos{
     }
 
     async generateRecord(file){
-        return await fs.readFile(file, "utf-8");
+        let record = await fs.readFile(file, "utf-8");
+        console.dir(record);
+        return record;
     }
 }
 
