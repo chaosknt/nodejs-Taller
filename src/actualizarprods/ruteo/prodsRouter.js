@@ -43,7 +43,7 @@ router.put('/update/:file', async (req, res, next) => {
 })
 
 router.get('*', function(req, res){
-    res.status(400);
+    res.status(404);
     res.send('Esa ruta es inexistente');
 });
 
