@@ -7,7 +7,7 @@ class CU_EscribirProducto {
         return date.toISOString().slice(0, 19).replace(/:/g, "-");
     }
 
-    async writeAllResults(data) {
+    async writeAllResultsToFile(data) {
         let content = JSON.stringify(data);
         let filename = this.createDate();
         return fs.writeFile(`./src/actualizarprods/files/output/${filename}.json`, content, {flag: 'a+'}, err => {

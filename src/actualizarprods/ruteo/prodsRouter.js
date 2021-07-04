@@ -9,7 +9,7 @@ const dao = new createDaoProducts();
 router.get('/', (req, res, next) => {
     dao.getProducts().then(data => {
         try {
-            new CU_EscribirProducto().writeAllResults(data).then(value => {
+            new CU_EscribirProducto().writeAllResultsToFile(data).then(value => {
                 res.status(200).send("Toda la colección exportada en un archivo correctamente");
             });
         } catch (e) {
@@ -41,15 +41,13 @@ router.put('/update/:file', async (req, res, next) => {
             res.status(200).send("Archivo actualizado correctamente.");
         });
     } catch (e) {
-        res.status(400);
-        res.send("Error detectado " + e);
+        res.status(400).send("Error detectado " + e);
     }
 
 })
 
 router.get('*', function (req, res) {
-    res.status(404);
-    res.send('Esa ruta es inexistente');
+    res.status(404).send('Esa ruta es inexistente');
 });
 
 export default router

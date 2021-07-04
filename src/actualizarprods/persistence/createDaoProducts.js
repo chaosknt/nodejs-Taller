@@ -12,7 +12,6 @@ class createDaoProducts {
         const collection = await this.getCollection();
         let query = {name: id};
         const result = await collection.find(query, {projection:{_id:0}});
-        this.client.close();
         return result;
 
     }
@@ -35,7 +34,6 @@ class createDaoProducts {
     async getProducts() {
         const collection = await this.getCollection();
         const result = await collection.find({}, {projection:{_id:0}}).toArray();
-        this.client.close();
         return result;
     }
 
