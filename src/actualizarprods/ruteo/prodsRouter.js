@@ -35,14 +35,19 @@ router.get('/name/:name', (req, res, next) => {
 
 router.put('/update/:file', async (req, res, next) => {
     console.log("put call");
-    let record = await new CU_ActualizarProductos().generateRecord(`./src/actualizarprods/files/input/${req.params.file}.json`);
-    dao.updateRecordsFromFile(record).then(value => {
-        res.status(200).send("Archivo actualizado correctamente.");
-    });
+    try {
+        let record = await new CU_ActualizarProductos().generateRecord(`./src/actualizarprods/files/input/${req.params.file}.json`);
+        dao.updateRecordsFromFile(record).then(value => {
+            res.status(200).send("Archivo actualizado correctamente.");
+        });
+    } catch (e) {
+        res.status(400);
+        res.send("Error detectado " + e);
+    }
 
 })
 
-router.get('*', function(req, res){
+router.get('*', function (req, res) {
     res.status(404);
     res.send('Esa ruta es inexistente');
 });
