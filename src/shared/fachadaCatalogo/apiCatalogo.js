@@ -5,12 +5,10 @@ import {creaCUProductos} from '../../productos/business/Factory_CUProductos.js'
 
 function createApiCatalogo(){
 
-    //#region Subscriptors
     const useCase_subscribe = createCUAddSubscriptor();
     const useCase_unsubscribe = createCUDeleteSubscriptor();
     const useCase_notify = createCUNotify();
     const useCase_productos = creaCUProductos();
-    //#endregion
     
     return {
         subscribe: async ( email ) => {
@@ -43,12 +41,6 @@ function createApiCatalogo(){
         closeProductos: async () => {
             return await useCase_productos.close(); 
         },
-        escribirProducto: async () => {
-
-        },
-        actualizarProducto: async () => {
-            
-        }
     }
 }
 

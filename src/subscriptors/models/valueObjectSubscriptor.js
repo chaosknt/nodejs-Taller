@@ -19,7 +19,6 @@ function valueObjectSubscriptor(){
         canUnsubscribe: ( email ) => {
 
             const { email:e } = email;  
-           
             if(e.trim().length === 0 ){
                 throw new errorEmailDoNotExist();
             }

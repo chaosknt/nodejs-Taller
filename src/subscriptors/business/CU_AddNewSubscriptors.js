@@ -9,12 +9,12 @@ function addNewSubscriptor( { DaoSubscriptions, subscriptor } ){
     return {
         subscribe : async ( email ) => {
            
-                const e = emailCreate(email);                      
-                const sub = await daoSubs.get(e);                                                
+                const isValidEmail = emailCreate(email);                      
+                const sub = await daoSubs.get(isValidEmail);                                                
                 await manageSubscriptor.canSubscribe(sub);           
-                const r = await daoSubs.add(e);
+                const result = await daoSubs.add(isValidEmail);
                 await daoSubs.close();
-                return { rta: r };
+                return { rta: result };
                                
         }        
     }

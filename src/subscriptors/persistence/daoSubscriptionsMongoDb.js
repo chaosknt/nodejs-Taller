@@ -1,12 +1,15 @@
 import { crearErrorDeBaseDeDatos } from "../../shared/error/subscriptorErrors/ErrorBaseDeDatos.js";
 import { getCnxStr } from "../../config.js";
 import mongodb from 'mongodb'
+import { getConnection } from "../../shared/mongo/connection.js";
 
 let mongoclient = mongodb.MongoClient;
-//const uri = "mongodb+srv://admin:admin@branalanacluster.rjrre.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
+
 const uri = getCnxStr();
-const client = new mongoclient(uri, {useUnifiedTopology: true});
-await client.connect();
+//const client = new mongoclient(uri, {useUnifiedTopology: true});
+//await client.connect();
+
+const client = await getConnection();
 const database = client.db('productos');
 const subs = database.collection('suscriptores');
 const dbClientes = subs;
@@ -25,9 +28,9 @@ function daoSubscriptionsMongoDb() {
             }
         },
         delete: async ( subsEmail ) => {                          
-
+            console.log(subsEmail)
             try {
-                return await dbClientes.deleteOne({email: subsEmail}); 
+                return await dbClientes.deleteOne({email: subsEmail.email}); 
                 
             } catch (error) {
                 throw crearErrorDeBaseDeDatos(error.message)
@@ -37,8 +40,7 @@ function daoSubscriptionsMongoDb() {
             let r
             try {                
                 r = await dbClientes.findOne(subsEmail);                              
-                delete r._id;
-               
+                delete r._id;              
             } catch (error) {
                 
                 throw crearErrorDeBaseDeDatos(error.message)

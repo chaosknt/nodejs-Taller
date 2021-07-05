@@ -8,7 +8,6 @@ function notify( { DaoSubscriptions, subscriptor, Mailer } ){
        notify: async ( sendingObject ) => {
 
            const subs = await daoSubs.getAll();
-           console.log(subs)
            await manageSubscriptors.SendNotify(subs, Mailer, sendingObject);
            return { sent: subs.length }
         }

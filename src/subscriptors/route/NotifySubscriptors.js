@@ -19,7 +19,7 @@ router.post('/', async (req, res) => {
 })
 
 router.use((err, req, res, next) => {
-    res.status(404)
+    res.status(500)
     res.json({ msg: err.message })
   })
   return router

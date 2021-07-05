@@ -8,11 +8,12 @@ function deleteSubscriptor( { DaoSubscriptions, subscriptor } ){
     return {        
         unsubscribe: async ( email ) => {
 
-            const e = emailCreate(email);
-            const sub = await daoSubs.get(e);                         
+            const isValidEmail = emailCreate(email);
+            const sub = await daoSubs.get(isValidEmail);                         
             await manageSubscriptor.canUnsubscribe(sub);
-            return { rta: daoSubs.delete(e) };
-
+            const result = await daoSubs.delete(isValidEmail);
+            await daoSubs.close();
+            return { rta: result };
         }
     }
 }
